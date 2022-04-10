@@ -1,2 +1,2 @@
-# c-
+# cpp
 using for c++ study
