@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <ncursers.h>
 
 using std::cout;
 using std::cin;
