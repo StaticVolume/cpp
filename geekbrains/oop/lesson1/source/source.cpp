@@ -17,6 +17,7 @@ int main(void){
 	addch(v);
 	refresh();
 	getch();
-	endwin();	
+	endwin();
+	
 return 0;
 }
