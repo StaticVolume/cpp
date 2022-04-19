@@ -2,6 +2,8 @@
 #include <ncurses.h>
 #include <string>
 #include <list>
+#include <thread>
+#include <chrono>
 
 using std::cout;
 using std::cin;
@@ -37,8 +39,9 @@ class Display{
 	void DWinClose(){
 	refresh();
 	while (getch()!='p'){
-	getch();
+	getmaxyx(stdscr, d_rows, d_colls);
 	refresh();
+	getch();
 	}
 	endwin();
 	}
@@ -48,6 +51,7 @@ class Display{
 
 class Point{
    private:
+   	Direction direct;
 	int x, y;
 	const char* elem = nullptr;
 		
@@ -60,8 +64,16 @@ class Point{
 	addstr(elem);
         }
         
-        void Resize(){
-        	
+        void Move(int offset, Direction dir){
+        	if(dir == Direction::UP){
+        		y-=offset;
+        	}else if(dir == Direction::DOWN){
+        		y+=offset;
+        	}else if (dir == Direction::LEFT){
+        		x-=offset;
+        	}else if (dir == Direction::RIGTH){
+        		x+=offset;
+        	}
         }
         //~Point (){}
 };
@@ -79,7 +91,7 @@ class EntityByPoint{
     	}
     	}
     	
-    	//virtual ~EntityByPoint();
+    	//~EntityByPoint();
 };
 
 
@@ -110,32 +122,35 @@ class HorizontalLine : public EntityByPoint{
 
 };
 
-class MySnake : public EntityByPoint{
+class MySnake : public EntityByPoint {
 	private :
 	Point head;
+	Point body;
 	Direction dir;
 	public:
 	
 	MySnake(int x_head = 15, int y_head = 15, const char* head_style = "|x]", const char* body_style = "*" ,int length= 10) : head(x_head,y_head,head_style){
 	         elements.push_back(head);
-		for (int z = length; z>0; --z){
+		for (int z = length-1; z>0; --z){
 		Point body( (x_head - z), y_head, body_style);
 		elements.push_back(body);
 		}
 	}
 	
 	
-	void Move(Direction dir, int speed = 30) {
-		if(dir == RIGTH){
-		 elements.pop_front();
-		 elements.pop_back();
-		 elements.push_back(head);
+	void MoveSnake(Direction dir, int speed = 30, int offset = 1) {
+		list<Point> new_lst;
+		for (auto p : elements){
+			p.Move(offset,dir);
+		        new_lst.push_back(p);
+		
 		}
+		elements.clear();
+		elements = new_lst;
+		
 	}
 	
 	
-
-
 };
 
 
@@ -147,24 +162,30 @@ class MySnake : public EntityByPoint{
 
 int main(void){
 
-	//Direction dir;
+	Direction dir = Direction::RIGTH;
 	Display my_d;
 	my_d.DWinInit();
 	
 	VerticalLine v_one(0,(my_d.GetRows()-1),0,"*|");
 	VerticalLine v_two(0,(my_d.GetRows()-1),(my_d.GetColls()-2),"|*");
-	MySnake snake(15,15,"|x]", "*", 10);
+	MySnake snake(15,15,"||x}", "%", 5);
 	HorizontalLine h_one(0,(my_d.GetColls()-1),0,"=");
 	HorizontalLine h_two(0,(my_d.GetColls()-1),(my_d.GetRows()-1),"=");
 	
-	//snake.Move( dir.RIGTH, 300);
+	
 	v_one.Draw();
 	v_two.Draw();
 	h_one.Draw();
 	h_two.Draw();
+	for (int x =0 ; x< 10'000; ++x){
+	snake.MoveSnake(dir);
 	snake.Draw();
+	refresh();
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	}
 	
 	my_d.DWinClose();
 	
 return 0;
+
 }
