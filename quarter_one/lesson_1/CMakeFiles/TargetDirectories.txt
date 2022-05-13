@@ -1,0 +1,3 @@
+/home/frenzy/cpp/quarter_one/lesson_1/CMakeFiles/first_prog.dir
+/home/frenzy/cpp/quarter_one/lesson_1/CMakeFiles/edit_cache.dir
+/home/frenzy/cpp/quarter_one/lesson_1/CMakeFiles/rebuild_cache.dir
