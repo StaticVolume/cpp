@@ -1,3 +1,0 @@
-/home/frenzy/cpp/quarter_one/lesson_3/lesson_3_1/build-lesson31-Desktop-Debug/CMakeFiles/lesson31.dir
-/home/frenzy/cpp/quarter_one/lesson_3/lesson_3_1/build-lesson31-Desktop-Debug/CMakeFiles/edit_cache.dir
-/home/frenzy/cpp/quarter_one/lesson_3/lesson_3_1/build-lesson31-Desktop-Debug/CMakeFiles/rebuild_cache.dir
