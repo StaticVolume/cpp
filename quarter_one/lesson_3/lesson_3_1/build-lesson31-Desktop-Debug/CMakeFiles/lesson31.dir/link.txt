@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/lesson31.dir/main.cpp.o CMakeFiles/lesson31.dir/consts.cpp.o -o lesson31 
