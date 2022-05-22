@@ -43,5 +43,10 @@ int main(int argc, char** argv) {
     *(p2+13) = 6583;
     std::cout << array[1][1][1] << std::endl;
 
+    // или так
+
+    int* p3 = &array[0][0][0];
+    *(p3+13) =156;
+     std::cout << array[1][1][1] << std::endl;
     return 0;
 }
