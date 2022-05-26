@@ -75,14 +75,15 @@ int main (int argc, char* argv[] ) {
     std::cout << "Enter new 2 numbers : " << std::endl;
     std::cin >> e >> j;
     std::cout << "................" << std::endl;
-
+    std::cout << "Your numbers : " << std::endl;
     for(uint32_t count = e ; count  <= j ; ++count ) {
 
             if ( (count % 2) != 0 ) {
 
-                std::cout<< count << std::endl;
+                std::cout<< count <<"  ";
             }
     }
+    std::cout << " " << std::endl;
 
  /* Задание № 4 : Со звёздочкой. Написать программу, проверяющую, является ли некоторое число - простым.
   * Простое число — это целое положительное число, которое делится без остатка только на единицу и себя само.*/
