@@ -22,7 +22,7 @@ template<typename T>
 void CircleArrayShift(T* array, const uint32_t size, const int shift_num); // функция циклического сдвига для массива.
 
 template <typename T>
-void FullArray(T* array, const uint32_t size, T (*GetRand)(T,T) );
+void FullArray(T* array, const uint32_t size, T (*GetRand)(const T,const T) );
 
 bool CheckBalance(const int* array, const uint32_t size);
 
