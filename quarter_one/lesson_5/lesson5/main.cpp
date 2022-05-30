@@ -10,21 +10,21 @@ int GetRandomI(const int min, const int max);
 ushort GetRandomUSH(const ushort min, const ushort max);
 double GetRandomD(const double min, const double max);
 
-void ChangArrayIFunc(ushort* array, const int size);// функция замены 1 на 0 и 0 на 1 массиве из 0 и 1, задание № 2
+void ChangArrayIFunc(ushort* array, const uint32_t size);// функция замены 1 на 0 и 0 на 1 массиве из 0 и 1, задание № 2
 
-void FullArrayStep3(int* array, const int size);// функция запонения с шагом 3 для задания № 3
+void FullArrayStep3(int* array, const uint32_t size);// функция запонения с шагом 3 для задания № 3
 
 //Для функции печати  по хорошему надо создавать шаблонную функцию, так как типов массивов много, чтобы зря не перегружать и не нагромождать код
 template <typename T>
-void PrintArray(const T* array, const int size) ; //Написать функцию которая выводит массив чисел на экран. Параметры функции это сам массив и его размер. Вызвать эту функцию из main.
+void PrintArray(const T* array, const uint32_t size) ; //Написать функцию которая выводит массив чисел на экран. Параметры функции это сам массив и его размер. Вызвать эту функцию из main.
 
 template<typename T>
-void CircleArrayShift(T* array, const int size, const int shift_num); // функция циклического сдвига для массива.
+void CircleArrayShift(T* array, const uint32_t size, const int shift_num); // функция циклического сдвига для массива.
 
 template <typename T>
-void FullArray(T* array, const int size, T (*GetRand)(T,T) );
+void FullArray(T* array, const uint32_t size, T (*GetRand)(T,T) );
 
-bool CheckBalance(const int* array, const int size);
+bool CheckBalance(const int* array, const uint32_t size);
 
 
 
@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 
    /*Написать функцию которая выводит массив double чисел на экран. Параметры функции это сам массив и его размер. Вызвать эту функцию из main.*/
 
-    int size {0};
+    uint32_t size {0};
     double* d_array { nullptr };
 
     do {
@@ -135,7 +135,7 @@ int main(int argc, char* argv[]) {
     i5_array[3] = 2;
     i5_array[4] = 1;*/
 
-    /*i5_array[0] = 10; тестовый прогон успешен
+    /*i5_array[0] = 10; //тестовый прогон успешен
     i5_array[1] = 1;
     i5_array[2] = 2;
     i5_array[3] = 3;
@@ -171,17 +171,17 @@ int main(int argc, char* argv[]) {
 
 
 
-bool CheckBalance(const int* array, const int size) {
+bool CheckBalance(const int* array, const uint32_t size) {
     bool is_balance { false };
     int summ_from_start { 0 };
     int summ_from_end { 0 };
 
-    for (int count {0}; count < size-1; ++count ) {
+    for (uint32_t count {0}; count < size-1; ++count ) {
 
          summ_from_start +=array[count];
          summ_from_end = 0;
 
-         for (int c = count + 1; c < size; ++c) {
+         for (uint32_t c = count + 1; c < size; ++c) {
 
              summ_from_end+=array[c];
          }
@@ -197,18 +197,18 @@ bool CheckBalance(const int* array, const int size) {
 
 
 
-void FullArrayStep3(int* array, const int size) {
+void FullArrayStep3(int* array, const uint32_t size) {
     array[0] = 1;
-    for (int c { 1 }; c < size; ++c ) {
+    for (uint32_t c { 1 }; c < size; ++c ) {
         array[c] = array[c-1] + 3;
     }
 }
 
 
 
-void ChangArrayIFunc(ushort* array, const int size) {
+void ChangArrayIFunc(ushort* array, const uint32_t size) {
 
-    for (int c { 0 }; c < size; ++c ) {
+    for (uint32_t c { 0 }; c < size; ++c ) {
         array[c]  = !(array[c]);
     }
 
@@ -217,27 +217,27 @@ void ChangArrayIFunc(ushort* array, const int size) {
 
 
 template <typename T>
-void FullArray(T* array, const int size , T (*GetRand) (T,T)) {
+void FullArray(T* array, const uint32_t size , T (*GetRand) (T,T)) {
 
     if( typeid(T) == typeid(double) || typeid(T) == typeid(float)  ) {
 
         const double a = -100.000126834;
         const double b = 100.654548924;
 
-        for (int c { 0 } ; c < size ; ++c) {
+        for (uint32_t c { 0 } ; c < size ; ++c) {
             *(array + c) = GetRand(a,b);
         }
 
     } else if (typeid(T) == typeid(ushort)) {
         const int a = 0;
         const int b = 1;
-            for (int c { 0 } ; c < size ; ++c) {
+            for (uint32_t c { 0 } ; c < size ; ++c) {
                 *(array + c) = GetRand(a,b);
             }
     }else {
         const int a = -100;
         const int b = 100;
-            for (int c { 0 } ; c < size ; ++c) {
+            for (uint32_t c { 0 } ; c < size ; ++c) {
                  *(array + c) = GetRand(a,b);
             }
     }
@@ -247,7 +247,7 @@ void FullArray(T* array, const int size , T (*GetRand) (T,T)) {
 
 
 template <typename  T>
-void PrintArray(const T* array, const int size) {
+void PrintArray(const T* array, const uint32_t size) {
 
     std::cout << "\n..............................................\n" << std::endl;
      std::cout << "array type : " << typeid(*array).name() << std::endl;
@@ -255,7 +255,7 @@ void PrintArray(const T* array, const int size) {
     std::cout << "count of array  : " << size << std::endl;
     std::cout << "\n..............................................\n" << std::endl;
 
-    for (int c { 0 } ; c < size ; ++c) {
+    for (uint32_t c { 0 } ; c < size ; ++c) {
              std::cout << "count of element : " << c+1 << "   number : " << *(array + c) << std::endl;
         }
 }
@@ -263,7 +263,7 @@ void PrintArray(const T* array, const int size) {
 
 
 template<typename T>
-void CircleArrayShift(T* array,  const int size, const int shift_num) {
+void CircleArrayShift(T* array,  const uint32_t size, const int shift_num) {
 
     T buffer { 0 };
     if (shift_num > 0) {
@@ -273,7 +273,7 @@ void CircleArrayShift(T* array,  const int size, const int shift_num) {
 
              buffer = array[0];
 
-                for (int c { 0 } ; c < size-1 ; ++c ){
+                for (uint32_t c { 0 } ; c < size-1 ; ++c ){
 
                         array[c] = array [c+1];
 
@@ -285,11 +285,11 @@ void CircleArrayShift(T* array,  const int size, const int shift_num) {
 
        std::cout << "\nYou choise : array  >> "  << abs(shift_num) << "\n" << std::endl;
 
-       for (int shift_size{ 0 }; shift_size < abs(shift_num) ; ++shift_size) {
+       for (uint32_t shift_size{ 0 }; shift_size < abs(shift_num) ; ++shift_size) {
 
             buffer = array[size - 1];
 
-                for (int c { size-1 } ; c > 0 ; --c ){
+                for (uint32_t c { size-1 } ; c > 0 ; --c ){
 
                     array[c] = array [c-1];
 
