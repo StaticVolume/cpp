@@ -138,7 +138,7 @@ int32_t PrintArray(const uint32_t* array, const uint32_t size) {
 
     for (int count{0}; count < size; ++count) {
 
-        std::cout << "Array count : " << count << " number : " << *(array+count) << std::endl;
+        std::cout << "Array count : " << count+1 << " number : " << *(array+count) << std::endl;
     }
 
 return 0;
@@ -308,6 +308,8 @@ int32_t ExerciseTwo() {
         FullArray(arr[arr_size], wsize, true);
         PrintArray(arr[arr_size], wsize);
 
+        std::cout << "................................................." << std::endl;
+
         delete [] arr[arr_size];
     }
 
@@ -363,7 +365,7 @@ int32_t ExerciseFour() {
 
 int32_t ExerciseFive() {
 
-    std::cout << "\nExercise Four stated " << std::endl;
+    std::cout << "\nExercise Five stated " << std::endl;
 
     std::string find_phrase;
     std::string file_buffer;
@@ -387,11 +389,11 @@ int32_t ExerciseFive() {
 
     } else {
 
-        std::cout << "Sorry, we cant find the phrase" << std::endl;
+        std::cout << "Sorry, we cant find the phrase : " << find_phrase  << " in file " << filename << std::endl;
     }
 
 
-     std::cout << "Exercise Four finish\n" << std::endl;
+     std::cout << "Exercise Five finish\n" << std::endl;
 
     return 0;
 }
