@@ -13,7 +13,7 @@ const uint32_t rand_max { 100 };
 
 
 int32_t CreateFullFile(const std::string& filename,  bool create_random  = true  , std::string write_str = "" );
-std::string ReadToStrFromFile(const std::string filename);
+std::string ReadToStrFromFile(const std::string filename, bool need_find_str = false, std::string find_str = "");
 uint32_t SizeOfArray();
 int32_t FullArray(uint32_t* array, const uint32_t size, bool israndom = false );
 int32_t ExerciseOne();
@@ -199,7 +199,7 @@ int32_t CreateFullFile(const std::string& filename, bool create_random, std::str
     return 0;
 }
 
-std::string ReadToStrFromFile(const std::string filename) {
+std::string ReadToStrFromFile(const std::string filename, bool need_find_str, std::string find_str) {
 
     std::string res;
     std::ifstream File(filename);
@@ -213,6 +213,22 @@ std::string ReadToStrFromFile(const std::string filename) {
             exit(-1);
 
          }
+    if(!need_find_str) {
+        while(!File.eof()) {
+          getline(File, res);
+            if ( res.find(find_str) != std::string::npos) {
+
+                 std::cout << "We find  " << find_str << " in " << filename << std::endl;
+          }else {
+
+                     std::cout << "Sorry, we cant find the phrase : " << find_str  << " in file " << filename << std::endl;
+
+                }
+               File.ignore('\n');
+        }
+
+
+    }
 
         while(!File.eof()) {
 
