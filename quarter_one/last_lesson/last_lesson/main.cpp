@@ -60,6 +60,12 @@ int main()
         SDL_RenderClear(sdl2->GetSDL2_Render());
         sdl2->SDL2DrawLines(color);
 
+        if (game->CalculateWinner() && (event.type != SDL_QUIT)){
+          std::cout << "Thank you, Game is Over, Please Enter ENTER_KEY to EXIT" << std::endl;
+          std::cin.get();
+          SDL_IS_RUN = false;
+          event.type = SDL_QUIT;
+        }
 
 
 
@@ -91,15 +97,8 @@ int main()
          IiGetAChoise(sdl2, game);
 
         sdl2->SDL2DrawGameField(game,game->GetSizeOfGameField());
+
         sdl2->SDL2UpdateWindowSRender();
-
-
-        if (game->CalculateWinner() && (event.type != SDL_QUIT)){
-          std::cout << "Thank you, Game is Over, Please Enter ENTER_KEY to EXIT" << std::endl;
-          std::cin.get();
-          SDL_IS_RUN = false;
-          event.type = SDL_QUIT;
-        }
 
      }
 

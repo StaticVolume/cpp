@@ -60,44 +60,41 @@ for (uint32_t count2{0}; count2 <  size_of_game_filed ; ++count2) {
 
 }else {
         game_field[count1][count2].color.SetColourFromNums(0,0,0,0);
-        /*if ( game_field[count1][count2].is_image){
-          //      game_field[count1][count2].color.SetColourA(200);
-        //} else {
-          //      game_field[count1][count2].color.SetColourA(0);
-        //}*/
         game_field[count1][count2].is_fill = false;
 }
 }
-
+}
 }
 
-}
-
-//}
 
 
 void Game::HumanTakeAmove(int32_t mouse_x, int32_t mouse_y) {
 
 if (random_choise ==  human_choise) {
 
-for(uint32_t count1{0}; count1 < size_of_game_filed; ++count1) {
+ bool is_seek = true;
 
-    for (uint32_t count2{0}; count2 < size_of_game_filed; ++count2) {
 
-    if( game_field[count1][count2].game_node_toy == empty_gametoy) {
 
-      if ((mouse_x >= game_field[count1][count2].x && mouse_x <= ( game_field[count1][count2].x  + (game_field[count1][count2].width ))  &&  (mouse_y >= game_field[count1][count2].y && mouse_y <= game_field[count1][count2].y  + game_field[count1][count2].heigth )) ) {
+   for(uint32_t count1{0}; count1 < size_of_game_filed; ++count1) {
+
+
+      for (uint32_t count2{0}; count2 < size_of_game_filed; ++count2) {
+
+        if ((  (mouse_x >= game_field[count1][count2].x) && mouse_x < ( game_field[count1][count2].x  + game_field[count1][count2].width ))  &&  ( (mouse_y >= game_field[count1][count2].y) && (mouse_y < game_field[count1][count2].y  + game_field[count1][count2].heigth) ))  {
+            if( game_field[count1][count2].game_node_toy == empty_gametoy) {
             game_field[count1][count2].is_image = true;
             game_field[count1][count2].game_node_toy = human_gametoy;
             random_choise = ii_choise;
+
             goto END;
-        }
+         }
       }
     }
  }
- END:
-    PrintAlarm();
 }
+END:;
+PrintAlarm();
 }
 
 
@@ -107,182 +104,94 @@ void Game::IiTakeAmove() {
 if(random_choise == ii_choise) {
 
     uint32_t min_rand_index{0};
-    uint32_t max_rand_index{2};
+    uint32_t max_rand_index{2};   
 
     uint32_t count_human_moves {0};
-    uint32_t count_ii_moves {0};
+    static uint32_t count_ii_moves {0};
     uint32_t rand_row{0};
     uint32_t rand_coll{0};
 
+    uint32_t global_statement = GetRandomChoise(min,max);
 
+     if (global_statement || count_ii_moves == 0) {
 
-    for(uint32_t count1{0}; count1 < size_of_game_filed; ++count1) {
+      std::cout << "Random trying" << std::endl;
 
-        for (uint32_t count2{0}; count2 < size_of_game_filed; ++count2) {
-
-                    if (game_field[count1][count2].game_node_toy == human_gametoy) {
-                        ++count_human_moves;
-                    }
-        }
-
-    }
-
-        //if (count_human_moves <= 2 ){
-
-            std::cout << "Phase One" << std::endl;
-
-            do {
+       do {
 
             rand_row = GetRandomChoise(min_rand_index,max_rand_index);
             rand_coll = GetRandomChoise(min_rand_index,max_rand_index);
 
-            } while(game_field[rand_row][rand_coll].game_node_toy != empty_gametoy);
+        } while (game_field[rand_row][rand_coll].game_node_toy != empty_gametoy);
 
-            game_field[rand_row][rand_coll].is_image = true;
-            game_field[rand_row][rand_coll].game_node_toy = ii_gametoy;
+        game_field[rand_row][rand_coll].is_image = true;
+        game_field[rand_row][rand_coll].game_node_toy = ii_gametoy;
 
-            ++count_ii_moves;
+        } else {
 
-         /*} else if ((count_human_moves > 2) || (count_ii_moves > 2)) {
+           uint32_t state_first_find_neighbor = GetRandomChoise(min,max);
 
-              std::cout << "Phase Two : Try to help Yoself" << std::endl;
+                if (state_first_find_neighbor) {
 
+                    std::cout << "Find  ii neighbor" << std::endl;
 
-              for(uint32_t count1{0}; count1 < size_of_game_filed-1; ++count1) {
+                     do {
 
-                  for (uint32_t count2{0}; count2 < size_of_game_filed-1; ++count2) {
+                        rand_row = GetRandomChoise(min_rand_index,max_rand_index);
+                        rand_coll = GetRandomChoise(min_rand_index,max_rand_index);
 
-                              if(game_field[count1][count2].game_node_toy == ii_gametoy){
+                      } while(game_field[rand_row][rand_coll].game_node_toy != ii_gametoy);
 
-                                     if(count1 == 0 && count2 == 0){
+                  } else {
 
-                                        if (game_field[count1][count2+1].game_node_toy == empty_gametoy){
-                                            game_field[rand_row][rand_coll].is_image = true;
-                                            game_field[count1][count2+1].game_node_toy = ii_gametoy;
-                                          //  count2+=1;
-                                            continue;
+                          std::cout << "Find human neigthbor " << std::endl;
 
+                          do {
 
-                                        } else if (game_field[count1+1][count2+1].game_node_toy == empty_gametoy){
-                                          game_field[rand_row][rand_coll].is_image = true;
-                                          game_field[count1+1][count2+1].game_node_toy = ii_gametoy;
-                                         // count1+=1;
-                                         // count2+=1;
-                                          continue;
+                          rand_row = GetRandomChoise(min_rand_index,max_rand_index);
+                          rand_coll = GetRandomChoise(min_rand_index,max_rand_index);
 
+                          } while (game_field[rand_row][rand_coll].game_node_toy != human_gametoy);
 
-                                        }else if (game_field[count1+1][count2].game_node_toy == empty_gametoy){
-                                            game_field[rand_row][rand_coll].is_image = true;
-                                            game_field[count1+1][count2].game_node_toy = ii_gametoy;
-                                           // count1+=1;
-                                            continue;
-                                        }
-                                } else if (count1 == 0 && count2 > 0) {
+                  }
+                   for(uint32_t count1{rand_row}; count1 < size_of_game_filed; ++count1) {
 
-                                         if (game_field[count1][count2+1].game_node_toy == empty_gametoy){
-                                             game_field[rand_row][rand_coll].is_image = true;
-                                             game_field[count1][count2+1].game_node_toy = ii_gametoy;
-                                          //  count2+=1;
-                                             continue;
+                    for (uint32_t count2{rand_coll}; count2 < size_of_game_filed; ++count2) {
 
+                            if (game_field[count1][count2].game_node_toy == empty_gametoy ) {
+                                game_field[count1][count2].is_image = true;
+                                game_field[count1][count2].game_node_toy = ii_gametoy;
 
-                                         } else if (game_field[count1+1][count2+1].game_node_toy == empty_gametoy){
-                                           game_field[rand_row][rand_coll].is_image = true;
-                                           game_field[count1+1][count2+1].game_node_toy = ii_gametoy;
-                                          // count1+=1;
-                                          // count2+=1;
-                                           continue;
+                                goto END;
 
+                               }
 
-                                         }else if (game_field[count1+1][count2].game_node_toy == empty_gametoy){
-                                             game_field[rand_row][rand_coll].is_image = true;
-                                             game_field[count1+1][count2].game_node_toy = ii_gametoy;
-                                            // count1+=1;
-                                             continue;
+                        }
 
-                                         } else if (game_field[count1][count2-1].game_node_toy == empty_gametoy) {
-                                             game_field[rand_row][rand_coll].is_image = true;
-                                             game_field[count1][count2-1].game_node_toy = ii_gametoy;
-                                             continue;
+                 }
+                    for(uint32_t count1{0}; count1 < rand_row ; ++count1) {
 
-                                         }
+                       for (uint32_t count2{0}; count2 < rand_coll; ++count2) {
 
-                       } else if (count1 > 0 && count2 == 0) {
+                           if (game_field[count1][count2].game_node_toy == empty_gametoy ) {
 
-                                         if (game_field[count1][count2+1].game_node_toy == empty_gametoy){
-                                             game_field[rand_row][rand_coll].is_image = true;
-                                             game_field[count1][count2+1].game_node_toy = ii_gametoy;
-                                             //count2+=1;
-                                             continue;
+                                  game_field[count1][count2].is_image = true;
+                                   game_field[count1][count2].game_node_toy = ii_gametoy;
 
-
-                                         } else if (game_field[count1+1][count2+1].game_node_toy == empty_gametoy){
-                                           game_field[rand_row][rand_coll].is_image = true;
-                                           game_field[count1+1][count2+1].game_node_toy = ii_gametoy;
-                                           //count1+=1;
-                                          // count2+=1;
-                                           continue;
-
-
-                                         }else if (game_field[count1+1][count2].game_node_toy == empty_gametoy){
-                                             game_field[rand_row][rand_coll].is_image = true;
-                                             game_field[count1+1][count2].game_node_toy = ii_gametoy;
-                                             //count1+=1;
-                                             continue;
-                                         } else if (game_field[count1-1][count2].game_node_toy == empty_gametoy) {
-                                             game_field[rand_row][rand_coll].is_image = true;
-                                             game_field[count1-1][count2].game_node_toy = ii_gametoy;
-                                             continue;
-                                         }
-
-
-                       } else if (count1 > 0 && count2 > 0) {
-
-
-                                         if (game_field[count1][count2+1].game_node_toy == empty_gametoy){
-                                             game_field[rand_row][rand_coll].is_image = true;
-                                             game_field[count1][count2+1].game_node_toy = ii_gametoy;
-                                            // count2+=1;
-                                             continue;
-
-                                         } else if (game_field[count1+1][count2+1].game_node_toy == empty_gametoy){
-                                           game_field[rand_row][rand_coll].is_image = true;
-                                           game_field[count1+1][count2+1].game_node_toy = ii_gametoy;
-                                          // count1+=1;
-                                          // count2+=1;
-                                            continue;
-
-                                         }else if (game_field[count1+1][count2].game_node_toy == empty_gametoy){
-                                             game_field[rand_row][rand_coll].is_image = true;
-                                             game_field[count1+1][count2].game_node_toy = ii_gametoy;
-                                            // count1+=1;
-                                             continue;
-
-                                         } else if (game_field[count1-1][count2].game_node_toy == empty_gametoy) {
-                                             game_field[rand_row][rand_coll].is_image = true;
-                                             game_field[count1-1][count2].game_node_toy = ii_gametoy;
-                                              continue;
-
-                                         }else if (game_field[count1-1][count2-1].game_node_toy == empty_gametoy) {
-                                             game_field[rand_row][rand_coll].is_image = true;
-                                             game_field[count1-1][count2-1].game_node_toy = ii_gametoy;
-                                             continue;
-                                         }
-
-                       } else {continue;}
-
-                }
-         }
+                                     goto END;
+                              }
+                         }
+                     }
 
 }
+
+
+END:
+
+      ++count_ii_moves;
+      random_choise = human_choise;
+       PrintAlarm();
 }
-}*/
-
-}
-    random_choise = human_choise;
-
-    PrintAlarm();
-
 }
 
 bool Game::CalculateWinner() {
