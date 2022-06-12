@@ -6,7 +6,6 @@
 #include "colour.h"
 #include "game.h"
 
-
 class SDL2 {
 
 private:
@@ -24,6 +23,7 @@ private:
 
       SDL_Texture* x_texture = nullptr;
       SDL_Texture* o_texture = nullptr;
+      SDL_Texture* hline_texture = nullptr;
 
       Mix_Music* backgraound_music = nullptr;
       Mix_Chunk* click_music = nullptr;
@@ -59,12 +59,14 @@ public:
    inline Mix_Chunk* GetClickMusic() const {return click_music;}
    inline Mix_Chunk* GetIiClickMusic() const {return ii_click_music;}
    inline Mix_Music* GetBackGroundMisic() const {return backgraound_music;}
-
-
+   inline SDL_Texture* GetXTexture() const {return x_texture ;}
+   inline SDL_Texture* GetOTexture() const {return o_texture ;}
+   inline SDL_Texture* GetHLineTexture() const {return hline_texture ;}
 
 //===================================================================
     void SDL2DrawLines(Colour& color);
     int32_t SDL2DrawGameField(Game* game, uint32_t size);
+    int32_t SDL2DrawHTextureLine(int32_t x1, int32_t y1, int32_t width, int32_t heigth);
 
 //===================================================================
     void SDL2Quit();
@@ -96,6 +98,11 @@ public:
             SDL_DestroyTexture(o_texture);
             o_texture = nullptr;
         }
+          if (hline_texture) {
+
+              SDL_DestroyTexture(hline_texture);
+              hline_texture = nullptr;
+          }
 
        if(screen_surface) {
             SDL_FreeSurface(screen_surface);
@@ -117,5 +124,6 @@ public:
        IMG_Quit();
    }
 };
+
 
 

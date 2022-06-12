@@ -50,6 +50,21 @@ int32_t SDL2::SDL2_Create_Textures() {
         return 6;
     }
 
+    temp_surface = IMG_Load("h_line_texture.jpg");
+
+    if (!temp_surface) {
+
+        std::cerr << "Sorry cant create temp surface to textures" << SDL_GetError() << std::endl;
+        return 6;
+    }
+    hline_texture = SDL_CreateTextureFromSurface(window_render, temp_surface);
+
+    if (!hline_texture) {
+
+        std::cerr << "Sorry cant create texture from surface" << SDL_GetError() <<std::endl;
+        return 6;
+    }
+
     return 0;
 }
 
@@ -296,6 +311,25 @@ SDL_GetMouseState(&mouse_x,&mouse_y);
 return 0;
 }
 
+
+
+int32_t SDL2::SDL2DrawHTextureLine(int32_t x1,int32_t y1, int32_t width, int32_t heigth) {
+
+    if (hline_texture) {
+
+        std::cerr << "Sorry cant use texture" << std::endl;
+        return 6;
+    }
+    SDL_SetRenderDrawBlendMode(window_render,SDL_BLENDMODE_BLEND);
+    //SDL_SetRenderDrawColor(window_render, color.GetColourR() , color.GetColourG(), color.GetColourB(), color.GetColourA());
+    SDL_Rect rect1 = {x1,y1,width,heigth};
+
+    SDL_RenderCopy(window_render, hline_texture, nullptr, &rect1);
+    SDL_RenderFillRect(window_render, &rect1);
+
+
+return 0;
+}
 
 //========================================================================================================================
 void SDL2::SDL2Quit() {

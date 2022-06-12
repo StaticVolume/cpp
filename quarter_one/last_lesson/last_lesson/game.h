@@ -4,6 +4,7 @@
 #include <chrono>
 #include "colour.h"
 
+
 class Game {
 public:
      enum GameToys: char {EMPTY = ' ', X = 'X', O = '0'};
@@ -70,7 +71,7 @@ public:
 
     void SetChoise(bool choise);
 
-     bool CalculateWinner();
+    bool CalculateWinner();
 
 //=================================================================================================
     ~Game() {

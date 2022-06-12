@@ -177,9 +177,9 @@ if(random_choise == ii_choise && game_steps > 0) {
                         }
 
                  }
-                    for(uint32_t count1{0}; count1 < rand_row ; ++count1) {
+                    for(int32_t count1{static_cast<int32_t>(rand_row)}; count1 >= 0 ; --count1) {
 
-                       for (uint32_t count2{0}; count2 < rand_coll; ++count2) {
+                       for (int32_t count2{static_cast<int32_t>(rand_coll)}; count2 >= 0; --count2) {
 
                            if (game_field[count1][count2].game_node_toy == empty_gametoy ) {
                                   game_field[count1][count2].is_image = true;
@@ -214,6 +214,7 @@ bool Game::CalculateWinner() {
         }
         win = true;
         game_steps = 0;
+
 
     } else if (game_field[1][0].game_node_toy == game_field[1][1].game_node_toy && game_field[1][1].game_node_toy == game_field[1][2].game_node_toy && game_field[1][1].game_node_toy != empty_gametoy) {
 

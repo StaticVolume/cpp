@@ -17,7 +17,8 @@
  *   По той же причине могу не успеть сделать адекватный ии. Очень хотелось не использовать тупой алгоритм блокировки, и я постараюсь до такого не опускаться, будет попытка реализовать ии через алгоритм
  *   поиска ближайшего соседа, но на крайний случай буду реализовавать рандом.
  *   Так же отмечу, что большую часть наработок я не удалю, а закоментирую, так как планирую работать дальше в данном направлении, так что закоментированный код оставлен целенаправленно*
- *   Такие файлы как human.cpp,  human.h, ii.cpp, ii.h так же оставлны, так как хотелось использовать ещё больший уровень декомпозиции, но как обычно времени не хватает.*/
+ *   Такие файлы как human.cpp,  human.h, ii.cpp, ii.h так же оставлны, так как хотелось использовать ещё больший уровень декомпозиции, но как обычно времени не хватает.
+ *   Перед финалом хотел сделать возможность создания линии зачёркивания при выйгрыше для большей наглядности, но времени не хватило    */
 
 void InitFunc(SDL2* sdl);
 void MusicFunc(SDL2* sdl);
@@ -61,7 +62,7 @@ int main()
         sdl2->SDL2DrawLines(color);
 
         if (game->CalculateWinner() && (event.type != SDL_QUIT)){
-          std::cout << "Thank you, Game is Over, Please Enter ENTER_KE to EXIT" << std::endl;
+          std::cout << std::endl << "Thank you, Game is Over, Please Enter ENTER_KE to EXIT" << std::endl;
           std::cin.get();
           SDL_IS_RUN = false;
           event.type = SDL_QUIT;
@@ -97,7 +98,6 @@ int main()
          IiGetAChoise(sdl2, game);
 
         sdl2->SDL2DrawGameField(game,game->GetSizeOfGameField());
-
         sdl2->SDL2UpdateWindowSRender();
 
      }
