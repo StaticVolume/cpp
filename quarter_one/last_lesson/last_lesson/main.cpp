@@ -61,7 +61,7 @@ int main()
         sdl2->SDL2DrawLines(color);
 
         if (game->CalculateWinner() && (event.type != SDL_QUIT)){
-          std::cout << "Thank you, Game is Over, Please Enter ENTER_KEY to EXIT" << std::endl;
+          std::cout << "Thank you, Game is Over, Please Enter ENTER_KE to EXIT" << std::endl;
           std::cin.get();
           SDL_IS_RUN = false;
           event.type = SDL_QUIT;
@@ -121,7 +121,7 @@ int main()
 
 void IiGetAChoise(SDL2* sdl, Game* game) {
 
-      if( game->GetChoise() == game->GetIiChoise()){
+      if( game->GetChoise() == game->GetIiChoise() && game->GetGameSteps() >0 ){
       game->IiTakeAmove();
       Mix_PlayChannel(-1, sdl->GetIiClickMusic(),0);
 
@@ -131,7 +131,7 @@ void IiGetAChoise(SDL2* sdl, Game* game) {
 
 void HumanGetAChoise(SDL2* sdl, Game* game) {
 
-    if( game->GetChoise() == game->GetHumanChoise()) {
+    if( game->GetChoise() == game->GetHumanChoise() && game->GetGameSteps() >0 ) {
     std::cout << "========================================================================"<< std::endl;
     std::cout <<std::endl<< " Human choosing int new thread : " << std::this_thread::get_id()  << std::endl;
     int32_t mouse_x{0};

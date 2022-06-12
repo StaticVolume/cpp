@@ -39,6 +39,7 @@ private:
 
     gamenode** game_field = nullptr;
     uint32_t size_of_game_filed = 3;// размкер игрового поля  3x3
+    static uint32_t game_steps;
 
 
 public:
@@ -56,6 +57,7 @@ public:
     inline GameToys GetEmptyGameToy() const {return empty_gametoy;}
     inline bool GetHumanChoise() const {return human_choise;}
     inline bool GetIiChoise() const {return ii_choise;}
+     uint32_t GetGameSteps() const {return game_steps;}
 
     void PrintAlarm();
 
