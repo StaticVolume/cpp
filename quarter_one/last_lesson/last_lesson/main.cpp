@@ -42,7 +42,7 @@ void InitFunc(SDL2* sdl);
 void MusicFunc(SDL2* sdl);
 void InitTexures(SDL2* sdl);
 
-void GetHumanSelect(SDL2* sdl, Game* game);
+void GetHumanSelect(SDL2* sdl, Game* game, SDL_Event &event);
 void HumanGetAChoise(SDL2* sdl, Game* game);
 void IiGetAChoise(SDL2* sdl, Game* game);
 
@@ -72,8 +72,11 @@ int main()
 
     SDL_Event event = sdl2->GetSDL2_Event();
 
-   std::thread thread10 (CalcWin, game, std::ref(event), std::ref(SDL_IS_RUN), std::ref(say_final), std::ref(cout));
-   thread10.detach();
+   // std::thread thread4 (GetHumanSelect,sdl2, game, std::ref(event));
+    //thread4.detach();
+
+    std::thread thread10 (CalcWin, game, std::ref(event), std::ref(SDL_IS_RUN), std::ref(say_final), std::ref(cout));
+    thread10.detach();
     //==============================================================================================================================================================
 
     while (SDL_IS_RUN) {
@@ -81,12 +84,6 @@ int main()
         SDL_SetRenderDrawColor(sdl2->GetSDL2_Render(), 255, 255, 255, 0);
         SDL_RenderClear(sdl2->GetSDL2_Render());
         sdl2->SDL2DrawLines(color);
-
-
-              //thread10.detach();
-             // thread10.~thread();
-            // CalcWin(game, event,SDL_IS_RUN,say_final, cout);
-
 
 
         while( SDL_PollEvent(&event) != 0) {
@@ -97,7 +94,7 @@ int main()
 
                 } else if (event.type == SDL_MOUSEMOTION) {
 
-                     std::thread thread4 (GetHumanSelect,sdl2, game);
+                     std::thread thread4 (GetHumanSelect,sdl2, game, std::ref(event));
                      thread4.detach();
                      thread4.~thread();
                    //GetHumanSelect(sdl2, game);
@@ -175,12 +172,13 @@ void HumanGetAChoise(SDL2* sdl, Game* game) {
 }
 }
 
-void GetHumanSelect(SDL2* sdl, Game* game) {
-
+void GetHumanSelect(SDL2* sdl, Game* game,SDL_Event &event) {
+   // while (event.type == SDL_QUIT && event.type == SDL_MOUSEMOTION){
     int32_t mouse_x{0};
     int32_t mouse_y{0};
     sdl->SDL2GetMouseCoords(mouse_x,mouse_y);
     game->HumanSelect(mouse_x,mouse_y);
+    //}
 }
 
 void InitTexures(SDL2* sdl){

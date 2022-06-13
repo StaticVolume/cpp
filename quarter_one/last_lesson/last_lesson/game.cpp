@@ -208,9 +208,9 @@ bool Game::CalculateWinner() {
 
         if (game_field[0][1].game_node_toy == human_gametoy) {
 
-            std::cout << "Human Wins!!!" << std::endl;
+            std::cout <<std::endl << "Human Wins!!!" << std::endl;
         } else {
-              std::cout << "Ii Wins!!!" << std::endl;
+              std::cout <<std::endl  << "Ii Wins!!!" << std::endl;
         }
         win = true;
         game_steps = 0;
@@ -220,9 +220,9 @@ bool Game::CalculateWinner() {
 
         if (game_field[1][1].game_node_toy == human_gametoy) {
 
-            std::cout << "Human Wins!!!" << std::endl;
+            std::cout <<std::endl  << "Human Wins!!!" << std::endl;
         } else {
-              std::cout << "Ii Wins!!!" << std::endl;
+              std::cout <<std::endl  << "Ii Wins!!!" << std::endl;
         }
         win = true;
         game_steps = 0;
@@ -231,9 +231,9 @@ bool Game::CalculateWinner() {
 
         if (game_field[2][1].game_node_toy == human_gametoy) {
 
-            std::cout << "Human Wins!!!" << std::endl;
+            std::cout <<std::endl  << "Human Wins!!!" << std::endl;
         } else {
-              std::cout << "Ii Wins!!!" << std::endl;
+              std::cout  <<std::endl << "Ii Wins!!!" << std::endl;
         }
         win = true;
         game_steps = 0;
@@ -242,9 +242,9 @@ bool Game::CalculateWinner() {
 
         if (game_field[1][0].game_node_toy == human_gametoy) {
 
-            std::cout << "Human Wins!!!" << std::endl;
+            std::cout <<std::endl  << "Human Wins!!!" << std::endl;
         } else {
-              std::cout << "Ii Wins!!!" << std::endl;
+              std::cout <<std::endl  << "Ii Wins!!!" << std::endl;
         }
         win = true;
         game_steps = 0;
@@ -252,9 +252,9 @@ bool Game::CalculateWinner() {
     } else if (game_field[0][1].game_node_toy == game_field[1][1].game_node_toy && game_field[1][1].game_node_toy == game_field[2][1].game_node_toy && game_field[1][1].game_node_toy != empty_gametoy){
         if (game_field[1][1].game_node_toy == human_gametoy) {
 
-            std::cout << "Human Wins!!!" << std::endl;
+            std::cout <<std::endl  << "Human Wins!!!" << std::endl;
         } else {
-              std::cout << "Ii Wins!!!" << std::endl;
+              std::cout <<std::endl  << "Ii Wins!!!" << std::endl;
         }
         win = true;
         game_steps = 0;
@@ -262,9 +262,9 @@ bool Game::CalculateWinner() {
      } else if (game_field[0][2].game_node_toy == game_field[1][2].game_node_toy && game_field[1][2].game_node_toy == game_field[2][2].game_node_toy && game_field[1][2].game_node_toy != empty_gametoy){
         if (game_field[1][2].game_node_toy == human_gametoy) {
 
-            std::cout << "Human Wins!!!" << std::endl;
+            std::cout <<std::endl  << "Human Wins!!!" << std::endl;
         } else {
-              std::cout << "Ii Wins!!!" << std::endl;
+              std::cout <<std::endl  << "Ii Wins!!!" << std::endl;
         }
         win = true;
         game_steps = 0;
@@ -273,9 +273,9 @@ bool Game::CalculateWinner() {
 
         if (game_field[1][1].game_node_toy == human_gametoy) {
 
-            std::cout << "Human Wins!!!" << std::endl;
+            std::cout <<std::endl  << "Human Wins!!!" << std::endl;
         } else {
-              std::cout << "Ii Wins!!!" << std::endl;
+              std::cout <<std::endl  << "Ii Wins!!!" << std::endl;
         }
         win = true;
         game_steps = 0;
@@ -284,9 +284,9 @@ bool Game::CalculateWinner() {
 
         if (game_field[1][1].game_node_toy == human_gametoy) {
 
-            std::cout << "Human Wins!!!" << std::endl;
+            std::cout <<std::endl  << "Human Wins!!!" << std::endl;
         } else {
-              std::cout << "Ii Wins!!!" << std::endl;
+              std::cout <<std::endl  << "Ii Wins!!!" << std::endl;
         }
         win = true;
         game_steps = 0;
