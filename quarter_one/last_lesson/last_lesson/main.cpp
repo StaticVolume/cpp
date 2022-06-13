@@ -161,8 +161,8 @@ void IiGetAChoise(SDL2* sdl, Game* game) {
 void HumanGetAChoise(SDL2* sdl, Game* game) {
 
     if( game->GetChoise() == game->GetHumanChoise() && game->GetGameSteps() >0 ) {
-    std::cout << "========================================================================"<< std::endl;
-    std::cout <<std::endl<< " Human choosing int new thread : " << std::this_thread::get_id()  << std::endl;
+    //std::cout << "========================================================================"<< std::endl;
+    //std::cout <<std::endl<< " Human choosing int new thread : " << std::this_thread::get_id()  << std::endl;
     int32_t mouse_x{0};
     int32_t mouse_y{0};
     sdl->SDL2GetMouseCoords(mouse_x,mouse_y);
