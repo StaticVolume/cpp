@@ -100,17 +100,17 @@ int main()
 
      } else if(event.type == SDL_MOUSEBUTTONUP &&  (game->GetChoise() == game->GetHumanChoise())) {
 
-                    std::thread thread5 (HumanGetAChoise,sdl2, game);
-                    thread5.join();
-                    thread5.~thread();
-                   // HumanGetAChoise(sdl2, game);
+                   // std::thread thread5 (HumanGetAChoise,sdl2, game);
+                    //thread5.join();
+                    //thread5.~thread();
+                    HumanGetAChoise(sdl2, game);
             }
    }
 
-         std::thread thread6(IiGetAChoise,sdl2, game);
-          thread6.join();
-          thread6.~thread();
-        // IiGetAChoise(sdl2, game);
+         //std::thread thread6(IiGetAChoise,sdl2, game);
+          //thread6.join();
+          //thread6.~thread();
+         IiGetAChoise(sdl2, game);
 
 
 
@@ -135,7 +135,7 @@ void CalcWin(Game* game, SDL_Event &event, bool &SDL_IS_RUN, bool &say_final, bo
 
     }else if (say_final) {
        if (cout){
-       std::cout << std::endl << "Thank you, Game is Over, Please Enter ENTER_KE to EXIT" << std::endl;
+       std::cout << std::endl << "Thank you, Game is Over, Please Enter ENTER_KEY ot Close the Window to EXIT" << std::endl;
        cout = false;
        }
        std::cin.get();
