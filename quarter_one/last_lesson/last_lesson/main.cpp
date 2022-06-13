@@ -27,14 +27,16 @@
                                                       * Изменён алгорит работы ИИ. Но сложно оценить насколько он стал лучше и стал ли.
                                                       * Реализована графическая оболочка игры на базе SDL2 а именно :
                                                            * Полноценное оконное приложение
-                                                           * Поддержка текстур, blending
+                                                           * Поддержка текстур, blending, выделение обьектов, принятие решений с помошью мыши
                                                            * Поддержка фоновой музыки
                                                            * Поддержка обработки событий кнопок
                                                            * Поддержка звуков обработки событий кнопок
                                                            * Поддержка обработки звуков событий ИИ
-                                                       * Базовая многопоточность (на данный момент в основном многопоточная инициализация, хотя присутствует многопоточный код иных функций)
-                                                       * Присутствует основа для создания более гибкого приложения, но понадобится рефакторинг некоторых мест, так как из-за спешки некоторые моменты пришлось програмировать в лоб
-                                                         из-за чего используется много лишних переменных, и лобовой просчёт результата*/
+                                                       * Базовая многопоточность (на данный момент в основном многопоточная инициализация , выделеение обьктов игроком, и просчёт выйгрыша
+                                                            хотя присутствует многопоточный код иных функций)
+                                                       * Присутствует основа для создания более гибкого приложения, но понадобится рефакторинг некоторых мест,
+                                                            так как из-за спешки некоторые моменты пришлось програмировать в лоб
+                                                            из-за чего используется много лишних переменных, и лобовой просчёт результата*/
 
 void InitFunc(SDL2* sdl);
 void MusicFunc(SDL2* sdl);
@@ -70,6 +72,8 @@ int main()
 
     SDL_Event event = sdl2->GetSDL2_Event();
 
+   std::thread thread10 (CalcWin, game, std::ref(event), std::ref(SDL_IS_RUN), std::ref(say_final), std::ref(cout));
+   thread10.detach();
     //==============================================================================================================================================================
 
     while (SDL_IS_RUN) {
@@ -78,10 +82,10 @@ int main()
         SDL_RenderClear(sdl2->GetSDL2_Render());
         sdl2->SDL2DrawLines(color);
 
-            std::thread thread10 (CalcWin, game, std::ref(event), std::ref(SDL_IS_RUN), std::ref(say_final), std::ref(cout));
-            thread10.detach();
-            thread10.~thread();
 
+              //thread10.detach();
+             // thread10.~thread();
+            // CalcWin(game, event,SDL_IS_RUN,say_final, cout);
 
 
 
@@ -96,11 +100,11 @@ int main()
                      std::thread thread4 (GetHumanSelect,sdl2, game);
                      thread4.detach();
                      thread4.~thread();
-                   // GetHumanSelect(sdl2, game);
+                   //GetHumanSelect(sdl2, game);
 
      } else if(event.type == SDL_MOUSEBUTTONUP &&  (game->GetChoise() == game->GetHumanChoise())) {
 
-                   // std::thread thread5 (HumanGetAChoise,sdl2, game);
+                   //std::thread thread5 (HumanGetAChoise,sdl2, game);
                     //thread5.join();
                     //thread5.~thread();
                     HumanGetAChoise(sdl2, game);
@@ -129,11 +133,11 @@ int main()
 
 void CalcWin(Game* game, SDL_Event &event, bool &SDL_IS_RUN, bool &say_final, bool & cout){
 
-   if (!say_final && (event.type != SDL_QUIT )){
-
+   while (event.type != SDL_QUIT ){
+     if (!say_final && (event.type != SDL_QUIT )){
                 say_final = game->CalculateWinner();
 
-    }else if (say_final) {
+    }else if (say_final && (event.type != SDL_QUIT)) {
        if (cout){
        std::cout << std::endl << "Thank you, Game is Over, Please Enter ENTER_KEY ot Close the Window to EXIT" << std::endl;
        cout = false;
@@ -142,8 +146,8 @@ void CalcWin(Game* game, SDL_Event &event, bool &SDL_IS_RUN, bool &say_final, bo
        SDL_IS_RUN = false;
        event.type = SDL_QUIT;
 
-   }
-
+   }else {;}
+}
  }
 
 

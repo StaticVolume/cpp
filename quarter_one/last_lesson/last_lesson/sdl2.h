@@ -76,19 +76,6 @@ public:
 
     ~SDL2() {
 
-        if (click_music) {
-            click_music = nullptr;
-        }
-
-          if(ii_click_music) {
-
-              ii_click_music =nullptr;
-          };
-
-        if(backgraound_music) {
-            backgraound_music = nullptr;
-        }
-
         if (x_texture) {
             SDL_DestroyTexture(x_texture);
             x_texture = nullptr;
